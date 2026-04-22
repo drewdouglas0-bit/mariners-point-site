@@ -60,6 +60,19 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const openBookingPanel = () => {
+    setMenuOpen(false);
+    setPanelOpen(true);
+  };
+
+  const toggleMobileMenu = () => {
+    if (panelOpen) {
+      setMenuOpen(false);
+      return;
+    }
+    setMenuOpen((m) => !m);
+  };
+
   return (
     <main className="bg-night text-cream overflow-x-clip">
       <BookingPanel isOpen={panelOpen} onClose={() => setPanelOpen(false)} />
@@ -93,13 +106,13 @@ export default function Home() {
 
           <div className="flex items-center gap-2 sm:gap-3">
             <button
-              onClick={() => setPanelOpen(true)}
+              onClick={openBookingPanel}
               className="bg-gold text-night text-[11px] sm:text-xs font-bold tracking-widest uppercase px-3.5 sm:px-5 min-h-[44px] hover:bg-gold-light transition-colors duration-200"
             >
               Book a Tee Time
             </button>
             <button
-              onClick={() => setMenuOpen((m) => !m)}
+              onClick={toggleMobileMenu}
               aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={menuOpen}
               className="sm:hidden min-h-[44px] min-w-[44px] inline-flex items-center justify-center border border-cream/25 text-cream"
@@ -184,7 +197,7 @@ export default function Home() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
-              onClick={() => setPanelOpen(true)}
+              onClick={openBookingPanel}
               className="bg-gold text-night px-10 py-4 text-xs font-bold tracking-[0.2em] uppercase hover:bg-gold-light transition-colors duration-200"
             >
               Book a Tee Time
