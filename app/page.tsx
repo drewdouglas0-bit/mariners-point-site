@@ -1129,12 +1129,20 @@ export default function Home() {
             not affiliated with Mariners Point Golf Center.
           </p>
 
-          <a
-            href="tel:6505737888"
-            className="hover:text-gold transition-colors duration-200"
-          >
-            (650) 573-7888
-          </a>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/cancel"
+              className="hover:text-gold transition-colors duration-200"
+            >
+              Cancel a booking
+            </Link>
+            <a
+              href="tel:6505737888"
+              className="hover:text-gold transition-colors duration-200"
+            >
+              (650) 573-7888
+            </a>
+          </div>
         </div>
       </footer>
     </main>
