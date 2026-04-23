@@ -26,16 +26,21 @@ export async function GET(request: Request) {
     if (error) {
       console.error("Failed to fetch available tee times", error);
       return Response.json(
-        { error: "Unable to load tee times right now." },
+        {
+          error: "Unable to load tee times right now.",
+          debug: { message: error.message, code: error.code, details: error.details, hint: error.hint },
+        },
         { status: 500 },
       );
     }
 
     return Response.json(data ?? []);
-  } catch (error) {
-    console.error("Unexpected tee time fetch error", error);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    const stack = err instanceof Error ? err.stack : undefined;
+    console.error("Unexpected tee time fetch error", err);
     return Response.json(
-      { error: "Unable to load tee times right now." },
+      { error: "Unable to load tee times right now.", debug: { message, stack } },
       { status: 500 },
     );
   }
