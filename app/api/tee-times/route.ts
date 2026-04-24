@@ -1,4 +1,10 @@
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  { auth: { autoRefreshToken: false, persistSession: false } },
+);
 
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 export const dynamic = "force-dynamic";
@@ -14,8 +20,6 @@ export async function GET(request: Request) {
         { status: 400 },
       );
     }
-
-    const supabase = await createSupabaseServerClient();
     const { data, error } = await supabase
       .from("tee_times")
       .select("id,date,start_time,max_players,price_per_player,status")
