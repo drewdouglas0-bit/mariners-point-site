@@ -711,7 +711,7 @@ export function BookingPanel({
       <div
         aria-hidden="true"
         onClick={close}
-        className={`fixed inset-0 bg-black/60 z-[70] sm:z-40 transition-opacity duration-300 ${
+        className={`fixed inset-0 bg-black/60 z-[70] sm:z-[70] transition-opacity duration-300 ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       />
@@ -720,7 +720,7 @@ export function BookingPanel({
         role="dialog"
         aria-modal="true"
         aria-label="Book a tee time"
-        className={`fixed right-0 top-0 h-full w-full md:max-w-[480px] bg-navy z-[80] sm:z-50 flex flex-col shadow-2xl transform transition-transform duration-300 ease-out ${
+        className={`fixed right-0 top-0 h-full w-full md:max-w-[480px] bg-navy z-[80] sm:z-[80] flex flex-col shadow-2xl transform transition-transform duration-300 ease-out ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
