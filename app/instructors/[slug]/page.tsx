@@ -36,13 +36,21 @@ export default async function InstructorDetailPage({
   const {
     name, initials, headline, yearsTeaching, bio,
     quote, currentPackage, rateTables, ratesNote, scheduleLines,
-    certifications, lessonIncludes,
-    instagram, email, website, phone,
+    certifications, lessonIncludes, profileComingSoon,
+    instagram, twitter, email, website, phone, primaryWebsiteCtaLabel,
   } = instructor;
 
   const bioParagraphs = bio.split("\n\n");
-  const hasContact = !!(instagram || email || website || phone);
+  const hasContact = !!(instagram || twitter || email || website || phone);
   const hasRates = rateTables.length > 0 || ratesNote;
+  const websiteUrl = website
+    ? website.startsWith("http://") || website.startsWith("https://")
+      ? website
+      : `https://${website}`
+    : undefined;
+  const websiteLabel = website
+    ? website.replace(/^https?:\/\//, "").replace(/\/$/, "")
+    : "";
 
   return (
     <main className="bg-night text-cream min-h-screen">
@@ -76,6 +84,13 @@ export default async function InstructorDetailPage({
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-3">{name}</h1>
           <p className="text-cream/60 text-base leading-snug mb-4">{headline}</p>
+          {profileComingSoon && (
+            <div className="mb-4">
+              <span className="inline-flex rounded-full border border-cream/20 bg-cream/5 px-3 py-1 text-[10px] uppercase tracking-widest text-cream/60">
+                Profile coming soon
+              </span>
+            </div>
+          )}
           <p className="text-gold text-xs tracking-[0.25em] uppercase">{yearsTeaching}</p>
         </div>
       </div>
@@ -213,6 +228,17 @@ export default async function InstructorDetailPage({
               </div>
             )}
 
+            {primaryWebsiteCtaLabel && websiteUrl && (
+              <a
+                href={websiteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex w-full items-center justify-center border border-gold bg-gold text-navy px-5 py-3 text-xs font-bold tracking-[0.12em] uppercase hover:bg-gold/90 transition-colors duration-200"
+              >
+                {primaryWebsiteCtaLabel}
+              </a>
+            )}
+
             {/* Contact */}
             {hasContact && (
               <div>
@@ -240,13 +266,24 @@ export default async function InstructorDetailPage({
                   )}
                   {website && (
                     <a
-                      href={`https://${website}`}
+                      href={websiteUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-3 text-sm text-cream/65 hover:text-gold transition-colors duration-200"
                     >
                       <span className="text-gold flex-shrink-0">→</span>
-                      {website}
+                      {websiteLabel}
+                    </a>
+                  )}
+                  {twitter && (
+                    <a
+                      href={`https://x.com/${twitter}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 text-sm text-cream/65 hover:text-gold transition-colors duration-200"
+                    >
+                      <span className="text-gold flex-shrink-0">→</span>
+                      @{twitter}
                     </a>
                   )}
                   {instagram && (

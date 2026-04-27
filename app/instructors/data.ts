@@ -10,6 +10,7 @@ export interface Instructor {
   photo?: string; // filename in /public, e.g. "joby-2020.jpg"
   headline: string;
   yearsTeaching: string;
+  profileComingSoon?: boolean;
   bio: string;
   quote?: { text: string; attribution: string };
   currentPackage?: { label: string; price: string; description: string };
@@ -19,9 +20,11 @@ export interface Instructor {
   certifications?: string[];
   lessonIncludes?: string[];
   instagram?: string;
+  twitter?: string;
   email?: string;
   website?: string;
   phone?: string;
+  primaryWebsiteCtaLabel?: string;
 }
 
 export const instructors: Instructor[] = [
@@ -221,6 +224,45 @@ Dennis believes the golf swing can't be standardized — he develops each studen
     ratesNote: "Contact Dennis directly for current rates.",
     email: "dmitchellgolf@gmail.com",
     phone: "650-769-7669",
+  },
+  {
+    slug: "matt-coe",
+    name: "Matt Coe",
+    initials: "MC",
+    photo: "matt-coe.jpg",
+    headline: "10x World Top 100 Club Fitter · Former NCAA & NCIA Golf Coach",
+    yearsTeaching: "Since 1987",
+    bio: `Matt has been teaching golf since 1987 and is a 10-time World Top 100 club fitter — one of the most recognized club fitting credentials in the game. He is a former NCAA and NCIA golf coach, bringing structured competitive coaching experience to players of all levels.`,
+    rateTables: [],
+    ratesNote: "Contact Matt directly for current rates — call (650) 685-2000",
+    scheduleLines: ["Contact Matt directly to schedule a lesson"],
+    phone: "(650) 685-2000",
+    email: "golfprocoe@mail.com",
+    twitter: "coesign",
+  },
+  {
+    slug: "kelvin-kelley",
+    name: "Kelvin Kelley",
+    initials: "KK",
+    photo: "kelvin-kelley-300x296.jpg",
+    headline: "Golf Instructor at Mariners Point",
+    yearsTeaching: "Mariners Point Instructor",
+    profileComingSoon: true,
+    bio: `Profile coming soon. Visit kelleygolf.com for more information.`,
+    rateTables: [],
+    website: "kelleygolf.com",
+  },
+  {
+    slug: "bob-wang",
+    name: "Bob Wang",
+    initials: "BW",
+    photo: "bob-wang_orig.jpg",
+    headline: "Golf Instructor at Mariners Point",
+    yearsTeaching: "Mariners Point Instructor",
+    bio: `For rates, scheduling, and full instructor information, visit Bob's website.`,
+    rateTables: [],
+    website: "https://impackgolf.com/",
+    primaryWebsiteCtaLabel: "Visit impackgolf.com",
   },
 ];
 

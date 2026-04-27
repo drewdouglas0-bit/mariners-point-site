@@ -6,7 +6,7 @@ import { InstructorAvatar } from "../components/InstructorAvatar";
 export const metadata: Metadata = {
   title: "Instructors — Mariners Point Golf Center",
   description:
-    "Meet the teaching professionals at Mariners Point. Nine PGA-certified instructors for all skill levels — private lessons, group clinics, and junior programs.",
+    "Meet the teaching professionals at Mariners Point. Ten PGA-certified instructors for all skill levels — private lessons, group clinics, and junior programs.",
 };
 
 export default function InstructorsPage() {
@@ -55,6 +55,11 @@ export default function InstructorsPage() {
               </p>
 
               {/* Years */}
+              {instructor.profileComingSoon && (
+                <span className="inline-flex mt-4 rounded-full border border-cream/20 bg-cream/5 px-2.5 py-1 text-[10px] uppercase tracking-widest text-cream/60">
+                  Profile coming soon
+                </span>
+              )}
               <p className="text-gold/70 text-xs tracking-widest uppercase mt-4">
                 {instructor.yearsTeaching}
               </p>
