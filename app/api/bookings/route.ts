@@ -1,4 +1,5 @@
 import { createServiceRoleClient } from "@/lib/supabase/server";
+import { sendBookingConfirmation } from "@/lib/email/send-confirmation";
 import type {
   CreateBookingRequest,
   CreateBookingResponse,
@@ -122,7 +123,7 @@ export async function POST(request: Request) {
 
     const { data: teeTime, error: teeTimeError } = await supabase
       .from("tee_times")
-      .select("id,status")
+      .select("id,status,date,start_time")
       .eq("id", teeTimeId)
       .maybeSingle();
 
@@ -290,6 +291,18 @@ export async function POST(request: Request) {
         { status: 500 },
       );
     }
+
+    void sendBookingConfirmation({
+      to: email,
+      name,
+      confirmationCode,
+      date: teeTime.date,
+      startTime: teeTime.start_time,
+      playerCount,
+      totalPrice,
+    }).catch((err) => {
+      console.error("Email send failed (non-blocking):", err);
+    });
 
     const response: CreateBookingResponse = {
       confirmation_code: confirmationCode,
