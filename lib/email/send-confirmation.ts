@@ -41,30 +41,29 @@ You're booked at Mariners Point Golf Center.
 
 CONFIRMATION CODE: ${confirmationCode}
 
-────────────────────────
+------------------------
 Date:     ${formattedDate}
 Time:     ${formattedTime}
 Players:  ${playerCount}
 Est. Total: $${totalPrice.toFixed(2)}
-────────────────────────
+------------------------
 
-Final rate adjustments (senior, junior, resident, replay, frequent play card) are made at the pro shop upon arrival. Please bring valid ID or proof of eligibility if discounted rates apply.
+Final rate adjustments are made at the pro shop upon arrival. Please bring valid ID or proof of eligibility for discounted rates.
 
 GETTING THERE
 Mariners Point Golf Center
 2401 E 3rd Ave, Foster City, CA 94404
 
-Open until 10 PM seven nights a week — lighted for night play on the San Francisco Bay.
+Open until 10 PM seven nights a week.
 
 NEED TO CANCEL?
-Visit ${process.env.NEXT_PUBLIC_SITE_URL}/cancel and enter your confirmation code: ${confirmationCode}
-Cancellations must be made online. No-shows are tracked and may affect future booking eligibility.
+Visit ${process.env.NEXT_PUBLIC_SITE_URL}/cancel
+Enter your confirmation code: ${confirmationCode}
 
-Questions? Call us at (650) 573-7888.
+Questions? Call (650) 573-7888.
 
 See you on the course,
-Mariners Point Golf Center
-marinerspoint.com`
+Mariners Point Golf Center`
 
   try {
     const controller = new AbortController()
