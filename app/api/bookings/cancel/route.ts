@@ -1,4 +1,5 @@
 import { createServiceRoleClient } from "@/lib/supabase/server";
+import { sendCancellationConfirmation } from "@/lib/email/send-confirmation";
 import type { CancelBookingRequest } from "@/lib/types/booking";
 
 export async function POST(request: Request) {
@@ -18,7 +19,7 @@ export async function POST(request: Request) {
 
     const { data: booking, error: fetchBookingError } = await supabase
       .from("bookings")
-      .select("id,status,tee_time_id")
+      .select("id,status,tee_time_id,golfer_id,player_count")
       .eq("confirmation_code", confirmationCode)
       .maybeSingle();
 
@@ -85,6 +86,49 @@ export async function POST(request: Request) {
         { error: "Unable to process cancellation right now." },
         { status: 500 },
       );
+    }
+
+    try {
+      const [{ data: golfer, error: golferError }, { data: teeTime, error: teeTimeFetchError }] =
+        await Promise.all([
+          supabase
+            .from("golfers")
+            .select("name,email")
+            .eq("id", booking.golfer_id)
+            .maybeSingle(),
+          supabase
+            .from("tee_times")
+            .select("date,start_time")
+            .eq("id", booking.tee_time_id)
+            .maybeSingle(),
+        ]);
+
+      if (golferError) {
+        console.error("Failed to fetch golfer details for cancellation email", golferError);
+      }
+      if (teeTimeFetchError) {
+        console.error("Failed to fetch tee time details for cancellation email", teeTimeFetchError);
+      }
+
+      if (golfer?.email && golfer?.name && teeTime?.date && teeTime?.start_time) {
+        await sendCancellationConfirmation({
+          to: golfer.email,
+          name: golfer.name,
+          confirmationCode,
+          date: teeTime.date,
+          startTime: teeTime.start_time,
+          playerCount: booking.player_count,
+        });
+      } else {
+        console.error("Missing cancellation email details; email not sent", {
+          hasGolferEmail: Boolean(golfer?.email),
+          hasGolferName: Boolean(golfer?.name),
+          hasDate: Boolean(teeTime?.date),
+          hasStartTime: Boolean(teeTime?.start_time),
+        });
+      }
+    } catch (emailError) {
+      console.error("Cancellation confirmation email failed", emailError);
     }
 
     return Response.json({

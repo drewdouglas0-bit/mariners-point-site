@@ -103,3 +103,93 @@ Mariners Point Golf Center`
     return { success: false, error: String(err) }
   }
 }
+
+export async function sendCancellationConfirmation({
+  to,
+  name,
+  confirmationCode,
+  date,
+  startTime,
+  playerCount,
+}: {
+  to: string
+  name: string
+  confirmationCode: string
+  date: string
+  startTime: string
+  playerCount: number
+}) {
+  const apiKey = process.env.RESEND_API_KEY
+
+  if (!apiKey) {
+    console.error('No RESEND_API_KEY found — cancellation email not sent')
+    return { success: false, error: 'No API key' }
+  }
+
+  const formattedDate = new Date(date + 'T12:00:00').toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+
+  const formattedTime = new Date(`2000-01-01T${startTime}`).toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  })
+
+  const body = `Hi ${name},
+
+Your booking at Mariners Point Golf Center has been cancelled.
+
+CANCELLED BOOKING
+------------------------
+Confirmation Code: ${confirmationCode}
+Date:     ${formattedDate}
+Time:     ${formattedTime}
+Players:  ${playerCount}
+------------------------
+
+This tee time is now available for other golfers.
+
+If you cancelled by mistake or have questions, please call us at (650) 573-7888 and we'll do our best to help.
+
+We hope to see you on the course soon.
+
+Mariners Point Golf Center
+2401 E 3rd Ave, Foster City, CA 94404
+marinerspoint.com`
+
+  try {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 8000)
+
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'onboarding@resend.dev',
+        to: [to],
+        subject: `Booking Cancelled — ${confirmationCode} — ${formattedDate} at ${formattedTime}`,
+        text: body,
+      }),
+      signal: controller.signal,
+    })
+
+    clearTimeout(timeout)
+
+    const responseText = await response.text()
+    if (!response.ok) {
+      console.error('Resend cancellation email error:', response.status, responseText)
+    }
+
+    return { success: response.ok, data: responseText }
+  } catch (err) {
+    console.error('Cancellation email fetch failed:', err)
+    return { success: false, error: String(err) }
+  }
+}
