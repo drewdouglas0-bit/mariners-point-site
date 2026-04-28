@@ -119,7 +119,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const supabase: any = createServiceRoleClient();
+    const supabase = createServiceRoleClient();
 
     const { data: teeTime, error: teeTimeError } = await supabase
       .from("tee_times")
@@ -292,7 +292,6 @@ export async function POST(request: Request) {
       );
     }
 
-    console.log("About to send email for booking:", confirmationCode);
     await sendBookingConfirmation({
       to: email,
       name,
@@ -302,7 +301,6 @@ export async function POST(request: Request) {
       playerCount,
       totalPrice,
     });
-    console.log("Email call completed");
 
     const response: CreateBookingResponse = {
       confirmation_code: confirmationCode,

@@ -55,7 +55,7 @@ export async function POST() {
 
     const { data, error } = await supabase
       .from("tee_times")
-      .upsert(teeTimesToInsert as any[], {
+      .upsert(teeTimesToInsert, {
         onConflict: "date,start_time",
         ignoreDuplicates: true,
       })

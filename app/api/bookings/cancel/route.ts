@@ -14,7 +14,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const supabase: any = createServiceRoleClient();
+    const supabase = createServiceRoleClient();
 
     const { data: booking, error: fetchBookingError } = await supabase
       .from("bookings")
