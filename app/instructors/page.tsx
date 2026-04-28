@@ -4,9 +4,9 @@ import { instructors } from "./data";
 import { InstructorAvatar } from "../components/InstructorAvatar";
 
 export const metadata: Metadata = {
-  title: "Instructors — Mariners Point Golf Center",
+  title: "Golf Instructors — Mariners Point Golf Center",
   description:
-    "Meet the teaching professionals at Mariners Point. Ten PGA-certified instructors for all skill levels — private lessons, group clinics, and junior programs.",
+    "Meet our PGA-certified teaching professionals. Private lessons, group clinics, and junior programs at Mariners Point in Foster City, CA.",
 };
 
 export default function InstructorsPage() {

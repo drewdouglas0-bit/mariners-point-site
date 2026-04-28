@@ -3,9 +3,9 @@ import Link from "next/link";
 import { PartnerInstructorAvatar } from "../components/PartnerInstructorAvatar";
 
 export const metadata: Metadata = {
-  title: "Group Lessons — Mariners Point Golf Center",
+  title: "Adult Group Golf Lessons — Mariners Point Golf Center",
   description:
-    "Adult group lessons at Mariners Point, taught by Silicon Valley Golf Performance Center with three clear packages from fundamentals to monthly development.",
+    "Beginning Series I & II and Monthly Skills Clinics with Silicon Valley Golf Performance Center at Mariners Point in Foster City, CA.",
 };
 
 type Package = {

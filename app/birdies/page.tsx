@@ -5,9 +5,9 @@ import { BirdiesOrderFloat } from "../components/BirdiesOrderFloat";
 const ORDER_URL = "https://my-site-100783-102620.square.site/s/order";
 
 export const metadata: Metadata = {
-  title: "Birdie's at Mariners Point",
+  title: "Birdie's at Mariners Point — Bar & Grill Foster City",
   description:
-    "Birdie's at Mariners Point is the neighborhood bar and grill at Mariners Point Golf Center with smashburgers, street tacos, pizza, full bar, beer, and wine.",
+    "Smashburgers, street tacos, cold beer, and a full bar. Birdie's at Mariners Point is your 19th hole on San Francisco Bay.",
 };
 
 type MenuItem = {

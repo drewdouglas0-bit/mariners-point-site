@@ -16,7 +16,45 @@ const lora = Lora({
 export const metadata: Metadata = {
   title: "Mariners Point Golf Center — Foster City, CA",
   description:
-    "A 9-hole par-3 course and 64-stall driving range on San Francisco Bay. Lighted for night play until 10 PM, seven days a week.",
+    "A 9-hole par-3 course and 64-stall driving range on San Francisco Bay. Lighted for night play until 10 PM, seven days a week. Book a tee time online.",
+  metadataBase: new URL("https://mariners-point-site-fsrg.vercel.app"),
+  openGraph: {
+    title: "Mariners Point Golf Center — Foster City, CA",
+    description:
+      "Golf under the lights on San Francisco Bay. 9-hole par-3 course, 64-stall Toptracer range, open until 10 PM nightly.",
+    url: "https://mariners-point-site-fsrg.vercel.app",
+    siteName: "Mariners Point Golf Center",
+    images: [
+      {
+        url: "/images/twilight.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Mariners Point Golf Center at twilight on San Francisco Bay",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mariners Point Golf Center — Foster City, CA",
+    description:
+      "Golf under the lights on San Francisco Bay. Open until 10 PM nightly.",
+    images: ["/images/twilight.jpg"],
+  },
+  keywords: [
+    "golf Foster City",
+    "golf San Francisco Bay Area",
+    "par-3 golf course",
+    "driving range Foster City",
+    "Toptracer range Bay Area",
+    "night golf Bay Area",
+    "golf lessons Foster City",
+    "Mariners Point Golf",
+  ],
+  alternates: {
+    canonical: "https://mariners-point-site-fsrg.vercel.app",
+  },
 };
 
 export default function RootLayout({

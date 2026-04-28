@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Junior Programs — Mariners Point Golf Center",
+  title: "Junior Golf Programs — Mariners Point Golf Center",
   description:
-    "Explore Mariners Point Junior Programs including Summer Camps, PGA Jr. League, and PGA Little Linksters led by Ron Sagara, PGA.",
+    "Summer camps, PGA Jr. League, and Little Linksters at Mariners Point. Junior golf programs for ages 8-15 in Foster City, CA.",
 };
 
 type CampWeek = {
