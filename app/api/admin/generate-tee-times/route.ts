@@ -1,5 +1,6 @@
 import { createServiceRoleClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
+import { requireAdminSessionFromRequest, unauthorizedResponse } from "@/lib/admin/auth";
 
 const ONLINE_RATE = 23;
 const SLOT_INTERVAL_MINUTES = 10;
@@ -18,7 +19,18 @@ function toTimeStringFromMinutes(totalMinutes: number): string {
   return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:00`;
 }
 
-export async function POST() {
+function isValidInternalCronRequest(request: Request): boolean {
+  const cronSecret = process.env.CRON_SECRET;
+  if (!cronSecret) return false;
+  return request.headers.get("x-internal-cron") === cronSecret;
+}
+
+export async function POST(request: Request) {
+  const isAdmin = await requireAdminSessionFromRequest(request);
+  if (!isAdmin && !isValidInternalCronRequest(request)) {
+    return unauthorizedResponse();
+  }
+
   try {
     const supabase = createServiceRoleClient();
     const today = new Date();
