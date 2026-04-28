@@ -292,7 +292,8 @@ export async function POST(request: Request) {
       );
     }
 
-    sendBookingConfirmation({
+    console.log("About to send email for booking:", confirmationCode);
+    await sendBookingConfirmation({
       to: email,
       name,
       confirmationCode,
@@ -300,10 +301,8 @@ export async function POST(request: Request) {
       startTime: teeTime.start_time,
       playerCount,
       totalPrice,
-    })
-      .catch((err) => {
-        console.error("Email send failed:", err);
-      });
+    });
+    console.log("Email call completed");
 
     const response: CreateBookingResponse = {
       confirmation_code: confirmationCode,
