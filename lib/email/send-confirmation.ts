@@ -76,7 +76,7 @@ Mariners Point Golf Center
 marinerspoint.com`;
 
   const { data, error } = await resend.emails.send({
-    from: "Mariners Point <onboarding@resend.dev>",
+    from: 'Mariners Point <onboarding@resend.dev>',
     to,
     subject: `Booking Confirmed - ${confirmationCode} - ${formattedDate} at ${formattedTime}`,
     text: body,
