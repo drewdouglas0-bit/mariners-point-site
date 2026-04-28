@@ -292,9 +292,6 @@ export async function POST(request: Request) {
       );
     }
 
-    console.log("🔑 About to send confirmation email to:", email);
-    console.log("🔑 RESEND_API_KEY exists:", !!process.env.RESEND_API_KEY);
-
     sendBookingConfirmation({
       to: email,
       name,
@@ -304,11 +301,8 @@ export async function POST(request: Request) {
       playerCount,
       totalPrice,
     })
-      .then((result) => {
-        console.log("🔑 Email result:", JSON.stringify(result));
-      })
       .catch((err) => {
-        console.error("🔑 Email send failed:", err);
+        console.error("Email send failed:", err);
       });
 
     const response: CreateBookingResponse = {
