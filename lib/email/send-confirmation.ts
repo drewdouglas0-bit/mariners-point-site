@@ -1,7 +1,5 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function sendBookingConfirmation({
   to,
   name,
@@ -19,6 +17,12 @@ export async function sendBookingConfirmation({
   playerCount: number;
   totalPrice: number;
 }) {
+  const resendApiKey = process.env.RESEND_API_KEY;
+  if (!resendApiKey) {
+    throw new Error("RESEND_API_KEY is not set.");
+  }
+  const resend = new Resend(resendApiKey);
+
   const formattedDate = new Date(`${date}T00:00:00`).toLocaleDateString(
     "en-US",
     {
